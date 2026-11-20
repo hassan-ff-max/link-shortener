@@ -80,7 +80,30 @@
       box-shadow: 8px 8px 22px #04060b, -4px -4px 14px rgba(255, 255, 255, 0.03);
     }
 
+    .top-broadcast-bar {
+      display: none;
+      background: linear-gradient(90deg, rgba(0, 243, 255, 0.14), rgba(255, 183, 0, 0.14));
+      border: 1.5px solid var(--gold);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .broadcast-tag {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #090c14;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .broadcast-msg { font-family: 'Chakra Petch', sans-serif; font-size: 0.92rem; color: #fff; }
+
     .top-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .top-bar.single-col { grid-template-columns: 1fr; }
+
     .title-crazy {
       font-family: 'Syne', sans-serif;
       font-size: 1.35rem; font-weight: 800;
@@ -94,31 +117,61 @@
     .input-crazy, .select-crazy, .textarea-crazy {
       width: 100%; background: #070a12; color: #fff; border: 1.5px solid #222d4a; border-radius: 12px; padding: 11px 12px; font-family: 'Chakra Petch', sans-serif; font-size: 0.92rem; outline: none;
     }
-    .input-crazy:focus, .select-crazy:focus { border-color: var(--cyan); }
+    .input-crazy:focus, .select-crazy:focus, .textarea-crazy:focus { border-color: var(--cyan); }
+    .textarea-crazy { min-height: 64px; resize: vertical; }
 
-    .group-header { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; color: var(--pink); margin: 16px 0 10px; padding-bottom: 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .result-panel {
+      display: none; margin-top: 14px; padding: 14px; border-radius: 16px;
+      background: rgba(5, 255, 161, 0.07); border: 1.5px solid var(--green); text-align: center;
+    }
+    .short-out { font-family: 'Orbitron', sans-serif; font-size: 0.82rem; color: var(--green); word-break: break-all; margin: 8px 0 10px; }
+    #qr-holder { display: inline-block; background: #fff; padding: 8px; border-radius: 10px; margin-bottom: 10px; }
+
+    .group-header { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; color: var(--pink); margin: 16px 0 10px; padding-bottom: 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-transform: uppercase; }
     .setting-card { background: var(--box-2); border: 1.5px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+    .setting-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 4px; }
     .setting-title { font-family: 'Chakra Petch', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--gold); }
     .setting-def { font-size: 0.82rem; color: var(--muted); margin: 3px 0 8px; line-height: 1.35; }
-    .switch-3d { width: 20px; height: 20px; accent-color: var(--cyan); cursor: pointer; }
+    .switch-3d { width: 20px; height: 20px; accent-color: var(--cyan); cursor: pointer; flex-shrink: 0; }
 
-    /* Recent Links & Public Cards */
-    .links-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+    .stat-tile { background: var(--box-2); border: 1.5px solid rgba(0, 243, 255, 0.25); border-radius: 14px; padding: 12px; text-align: center; }
+    .stat-num { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--cyan); margin-top: 4px; }
+
+    .links-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; max-height: 300px; overflow-y: auto; }
     .public-link-card {
-      background: #0d1222; border: 1.5px solid rgba(0, 243, 255, 0.2); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px;
+      background: #0d1222; border: 1.5px solid rgba(0, 243, 255, 0.2); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 7px;
     }
-    .link-slug-title { font-family: 'Orbitron', sans-serif; font-size: 0.82rem; color: var(--cyan); word-break: break-all; }
+    .link-slug-title { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--cyan); word-break: break-all; }
     .link-target-text { font-size: 0.82rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Cooldown Overlay Card */
+    /* Pop-Up Modal */
+    .popup-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(3, 5, 10, 0.82); backdrop-filter: blur(5px);
+      z-index: 999; align-items: center; justify-content: center; padding: 16px;
+    }
+    .popup-backdrop.active { display: flex; }
+    .popup-card {
+      width: 100%; max-width: 390px; background: linear-gradient(155deg, #172038, #0c101c);
+      border: 2px solid var(--cyan); border-radius: 22px; padding: 20px; text-align: center;
+    }
+    .popup-type {
+      display: inline-block; font-family: 'Orbitron', sans-serif; font-size: 0.72rem; padding: 4px 12px;
+      border-radius: 999px; background: var(--pink); color: #fff; margin-bottom: 10px; text-transform: uppercase;
+    }
+    .popup-body { font-family: 'Chakra Petch', sans-serif; font-size: 1rem; color: #fff; line-height: 1.45; margin-bottom: 16px; }
+
+    /* Cooldown Screen */
     .cooldown-box {
-      display: none; position: fixed; inset: 0; background: rgba(5,7,14,0.92); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 16px;
+      display: none; position: fixed; inset: 0; background: rgba(5,7,14,0.94); backdrop-filter: blur(8px);
+      z-index: 1000; align-items: center; justify-content: center; padding: 16px;
     }
     .cooldown-card {
-      width: 100%; max-width: 380px; background: #121829; border: 2px solid var(--gold); border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 30px rgba(255, 183, 0, 0.3);
+      width: 100%; max-width: 380px; background: #121829; border: 2px solid var(--gold);
+      border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 30px rgba(255, 183, 0, 0.25);
     }
     .timer-circle {
-      font-family: 'Orbitron', sans-serif; font-size: 2.8rem; font-weight: 900; color: var(--cyan); margin: 15px 0; text-shadow: 0 0 15px var(--cyan);
+      font-family: 'Orbitron', sans-serif; font-size: 2.8rem; font-weight: 900; color: var(--cyan); margin: 14px 0;
     }
 
     .watermark { text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.68rem; letter-spacing: 1px; background: linear-gradient(90deg, var(--gold), var(--cyan), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding-top: 6px; }
@@ -126,20 +179,30 @@
 </head>
 <body>
 
-  <!-- COOLDOWN SCREEN WITH TELEGRAM / SPONSOR CHANNEL -->
+  <!-- USER BROADCAST POP-UP -->
+  <div id="user-popup-modal" class="popup-backdrop">
+    <div class="popup-card">
+      <div id="popup-category-badge" class="popup-type">ANNOUNCEMENT</div>
+      <div id="popup-message-text" class="popup-body"></div>
+      <button class="btn-3d btn-cyan" style="width: 100%;" onclick="closeUserPopup()">
+        <i class="fa-solid fa-check"></i> Got It
+      </button>
+    </div>
+  </div>
+
+  <!-- COOLDOWN SCREEN WITH ADMIN CHANNEL -->
   <div id="cooldown-overlay" class="cooldown-box">
     <div class="cooldown-card">
       <div style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--gold);">REDIRECTING IN PROGRESS</div>
       <div id="cooldown-timer-num" class="timer-circle">5</div>
-      
-      <!-- Admin Channel Promotion Box -->
-      <div id="cooldown-channel-box" style="background: rgba(0, 243, 255, 0.08); border: 1px solid var(--cyan); border-radius: 12px; padding: 12px; margin-bottom: 15px;">
+
+      <div id="cooldown-channel-box" style="background: rgba(0, 243, 255, 0.08); border: 1px solid var(--cyan); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
         <div style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; color: var(--cyan); margin-bottom: 5px;">
           <i class="fa-brands fa-telegram"></i> <span id="sponsor-channel-title">JOIN OFFICIAL CHANNEL</span>
         </div>
-        <div style="font-size: 0.8rem; color: var(--muted); margin-bottom: 10px;">Visit our channel while your link is getting ready!</div>
+        <div id="sponsor-channel-desc" style="font-size: 0.82rem; color: var(--muted); margin-bottom: 10px;">Visit our channel while your link is getting ready!</div>
         <button id="sponsor-channel-btn" class="btn-3d btn-gold" style="width: 100%; font-size: 0.75rem;" onclick="openSponsorChannel()">
-          <i class="fa-solid fa-paper-plane"></i> Visit Channel Now
+          <i class="fa-solid fa-paper-plane"></i> <span id="sponsor-btn-label">Visit Channel Now</span>
         </button>
       </div>
 
@@ -148,95 +211,368 @@
   </div>
 
   <div class="phone-frame">
-    <!-- Top Navigation -->
-    <div class="top-bar">
+    <!-- Top Live Strip -->
+    <div id="top-broadcast-bar" class="top-broadcast-bar">
+      <div id="top-broadcast-tag" class="broadcast-tag">ANNOUNCEMENT</div>
+      <div id="top-broadcast-msg" class="broadcast-msg"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div id="top-nav-bar" class="top-bar">
       <button class="btn-3d btn-cyan" onclick="openScreen('shortener')"><i class="fa-solid fa-bolt"></i> Shortener</button>
-      <button id="nav-login-btn" class="btn-3d btn-gold" onclick="openScreen('auth')"><i class="fa-solid fa-user-lock"></i> Login / Admin</button>
+      <button id="nav-auth-btn" class="btn-3d btn-gold" onclick="openScreen('auth')"><i class="fa-solid fa-user-lock"></i> Login / Sign Up</button>
       <button id="nav-admin-btn" class="btn-3d btn-pink" style="display: none;" onclick="openScreen('admin')"><i class="fa-solid fa-crown"></i> Admin Panel</button>
     </div>
 
-    <!-- 1. LOGIN SCREEN -->
+    <!-- 1. START LOGIN / SIGN UP SCREEN -->
     <section id="screen-auth" class="crazy-box">
-      <div class="title-crazy">ADMIN LOGIN</div>
-      <div class="sub-crazy">Login with admin credentials to open settings</div>
+      <div id="auth-heading" class="title-crazy">ACCOUNT ACCESS</div>
+      <div class="sub-crazy">Login with admin credentials to unlock Admin Panel</div>
 
-      <div class="input-wrap" style="margin-top: 14px;">
-        <label class="input-label">Admin Email</label>
-        <input type="email" id="auth-email" class="input-crazy" placeholder="example@gmail.com" />
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0;">
+        <button id="btn-tab-login" class="btn-3d btn-cyan" onclick="setAuthTab('login')">Login</button>
+        <button id="btn-tab-signup" class="btn-3d" onclick="setAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <div class="input-wrap">
+        <label class="input-label">Email</label>
+        <input type="email" id="auth-email" class="input-crazy" placeholder="example@gmail.com" autocomplete="email" />
       </div>
       <div class="input-wrap">
-        <label class="input-label">Admin Password</label>
-        <input type="password" id="auth-pass" class="input-crazy" placeholder="Enter Your Password" />
+        <label class="input-label">Password</label>
+        <input type="password" id="auth-pass" class="input-crazy" placeholder="Enter Your Password" autocomplete="current-password" />
+      </div>
+      <div id="signup-confirm-wrap" class="input-wrap" style="display: none;">
+        <label class="input-label">Confirm Password</label>
+        <input type="password" id="auth-pass-confirm" class="input-crazy" placeholder="Enter Your Password" />
       </div>
 
-      <button class="btn-3d btn-gold" style="width: 100%;" onclick="loginAdmin()"><i class="fa-solid fa-right-to-bracket"></i> Login Dashboard</button>
+      <button id="auth-submit-btn" class="btn-3d btn-gold" style="width: 100%;" onclick="submitAuth()">
+        <i class="fa-solid fa-right-to-bracket"></i> Login Now
+      </button>
     </section>
 
-    <!-- 2. USER SHORTENER & PUBLIC RECENT LINKS SCREEN -->
+    <!-- 2. USER SHORTENER + PUBLIC SHORTENED LINKS LIST -->
     <section id="screen-shortener" class="crazy-box" style="display: none;">
-      <div class="title-crazy">HASSAN LINK SHORTENER</div>
-      <div class="sub-crazy">Instant 3D mobile link compressor</div>
+      <div id="main-site-title" class="title-crazy">HASSAN LINK SHORTENER</div>
+      <div id="main-site-sub" class="sub-crazy">Instant 3D mobile link compressor</div>
 
       <div class="input-wrap" style="margin-top: 12px;">
-        <label class="input-label"><i class="fa-solid fa-link"></i> Target Long URL</label>
-        <input type="url" id="user-long-url" class="input-crazy" placeholder="https://hassan-link-shortener.vercel.app" />
+        <label class="input-label"><i class="fa-solid fa-link"></i> Long URL</label>
+        <input type="url" id="short-long-url" class="input-crazy" placeholder="https://example.com/your-link" />
       </div>
 
-      <div class="input-wrap">
+      <div id="wrap-user-slug" class="input-wrap">
         <label class="input-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Custom Slug (Optional)</label>
-        <input type="text" id="user-custom-slug" class="input-crazy" placeholder="hassan-link-shortener-v1" />
+        <input type="text" id="short-custom-slug" class="input-crazy" placeholder="my-custom-slug" />
       </div>
 
-      <button class="btn-3d btn-cyan" style="width: 100%;" onclick="createShortLink()"><i class="fa-solid fa-rocket"></i> Shorten Link</button>
-
-      <!-- PUBLIC RECENT LINKS LIST (WITH COPY & VISIT BUTTONS) -->
-      <div class="group-header" style="margin-top: 20px;"><i class="fa-solid fa-list"></i> Shortened Links List</div>
-      <div id="public-links-container" class="links-list">
-        <!-- Rendered dynamically -->
+      <div id="wrap-user-pass" class="input-wrap">
+        <label class="input-label"><i class="fa-solid fa-lock"></i> Link Password (Optional)</label>
+        <input type="password" id="short-link-pass" class="input-crazy" placeholder="Enter Your Password" />
       </div>
+
+      <div id="wrap-user-limit" class="input-wrap">
+        <label class="input-label"><i class="fa-solid fa-bomb"></i> Self-Destruct Clicks (Optional)</label>
+        <input type="number" id="short-max-clicks" class="input-crazy" placeholder="e.g. 25" min="1" />
+      </div>
+
+      <button class="btn-3d btn-cyan" style="width: 100%;" onclick="createShortLink()">
+        <i class="fa-solid fa-rocket"></i> Shorten Link
+      </button>
+
+      <div id="short-result-box" class="result-panel">
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--green);">CREATED SHORT URL</div>
+        <div id="short-result-link" class="short-out"></div>
+        <div id="qr-holder"></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <button class="btn-3d btn-gold" onclick="copyText(lastCreatedShortUrl)"><i class="fa-solid fa-copy"></i> Copy</button>
+          <button class="btn-3d btn-green" onclick="visitShortLink(lastCreatedShortUrl)"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Now</button>
+        </div>
+      </div>
+
+      <!-- PUBLIC SHORTENED LINKS LIST FOR USERS -->
+      <div class="group-header" style="margin-top: 18px;"><i class="fa-solid fa-list"></i> Shortened Links List</div>
+      <div id="public-links-container" class="links-list"></div>
     </section>
 
-    <!-- 3. ADMIN PANEL SCREEN -->
+    <!-- 3. ADMIN PANEL (ALL 33+ OPTIONS WITH DEFINITIONS + COPY/VISIT/DELETE) -->
     <section id="screen-admin" class="crazy-box" style="display: none;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <div class="title-crazy" style="font-size: 1.1rem;">ADMIN DASHBOARD</div>
-        <button class="btn-3d btn-pink" style="padding: 6px 10px; font-size: 0.7rem;" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i> Logout</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <div class="title-crazy" style="font-size: 1.08rem; text-align: left;">ADMIN PANEL (33+ OPTIONS)</div>
+        <button class="btn-3d btn-pink" style="padding: 7px 10px; font-size: 0.7rem;" onclick="logoutAdminSession()">
+          <i class="fa-solid fa-power-off"></i> Logout
+        </button>
       </div>
 
-      <div class="group-header">Channel & Cooldown Timer Settings</div>
-      <div class="setting-card">
-        <div class="setting-title">Enable Cooldown Timer</div>
-        <div class="setting-def">Definition: Shows a 3D countdown screen with your channel banner before opening link.</div>
-        <input type="checkbox" id="cfg-timer-on" class="switch-3d" />
-      </div>
-      <div class="setting-card">
-        <div class="setting-title">Cooldown Duration (Seconds)</div>
-        <input type="number" id="cfg-timer-sec" class="input-crazy" value="5" min="1" max="30" />
-      </div>
-      <div class="setting-card">
-        <div class="setting-title">Telegram / Sponsor Channel URL</div>
-        <div class="setting-def">Definition: Your Telegram / WhatsApp channel link shown during cooldown time.</div>
-        <input type="url" id="cfg-channel-url" class="input-crazy" placeholder="https://t.me/HASSAN_UPDATES" />
-      </div>
-      <div class="setting-card">
-        <div class="setting-title">Channel Title Text</div>
-        <input type="text" id="cfg-channel-title" class="input-crazy" placeholder="JOIN HASSAN UPDATES" />
+      <!-- 1 & 2 -->
+      <div class="stats-grid">
+        <div class="stat-tile">
+          <div style="font-size: 0.78rem; color: var(--muted);">1. Total Links</div>
+          <div id="admin-stat-links" class="stat-num">0</div>
+        </div>
+        <div class="stat-tile">
+          <div style="font-size: 0.78rem; color: var(--muted);">2. Total Clicks</div>
+          <div id="admin-stat-clicks" class="stat-num">0</div>
+        </div>
       </div>
 
-      <button class="btn-3d btn-cyan" style="width: 100%; margin-bottom: 15px;" onclick="saveAdminSettings()"><i class="fa-solid fa-floppy-disk"></i> Save Admin Settings</button>
+      <!-- 3 - 7: Broadcast -->
+      <div class="group-header">Broadcast, Pop-Up & Mode Selection</div>
 
-      <!-- ADMIN LINKS MANAGER WITH VISIT, COPY & DELETE BUTTONS -->
-      <div class="group-header"><i class="fa-solid fa-database"></i> All Links Manager</div>
-      <div id="admin-links-container" class="links-list">
-        <!-- Rendered dynamically -->
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">3. Broadcast Category Mode</span></div>
+        <div class="setting-def">Definition: Choose message mode — Announcement, Chatting, Tip, Help, Alert, or Update.</div>
+        <select id="opt-broadcast-mode" class="select-crazy">
+          <option value="Announcement">Announcement</option>
+          <option value="Chatting">Chatting</option>
+          <option value="Tip">Tip</option>
+          <option value="Help">Help</option>
+          <option value="Alert">Alert</option>
+          <option value="Update">Update</option>
+        </select>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">4. Broadcast Message Text</span></div>
+        <div class="setting-def">Definition: Writes the live message shown in the top bar and user pop-up box.</div>
+        <textarea id="opt-broadcast-text" class="textarea-crazy" placeholder="Write announcement, chatting, tip, or help message..."></textarea>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">5. Show Top Banner Strip</span>
+          <input type="checkbox" id="opt-show-top-bar" class="switch-3d" />
+        </div>
+        <div class="setting-def">Definition: Displays the selected category badge and text at the top of the page.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">6. Trigger Pop-Up Modal for Users</span>
+          <input type="checkbox" id="opt-show-popup" class="switch-3d" />
+        </div>
+        <div class="setting-def">Definition: Opens a 3D pop-up dialog box on screen for users.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">7. Pop-Up Repeat ID (Push Trigger)</span></div>
+        <div class="setting-def">Definition: Change this tag (e.g. v2, v3) to show the pop-up again when updating messages.</div>
+        <input type="text" id="opt-popup-version" class="input-crazy" placeholder="v1" />
+      </div>
+
+      <!-- 8 - 12: Identity -->
+      <div class="group-header">Website Identity & Theme</div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">8. Website Name</span></div>
+        <div class="setting-def">Definition: Updates the main site title and browser tab title.</div>
+        <input type="text" id="opt-site-name" class="input-crazy" placeholder="Website name" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">9. Website Subtitle / Tagline</span></div>
+        <div class="setting-def">Definition: Sets the subtitle text under the main heading.</div>
+        <input type="text" id="opt-site-sub" class="input-crazy" placeholder="Short subtitle" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">10. Footer Watermark Text</span></div>
+        <div class="setting-def">Definition: Custom creator credit displayed at the bottom of the mobile view.</div>
+        <input type="text" id="opt-footer-text" class="input-crazy" placeholder="Footer watermark" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">11. Neon Accent Color Scheme</span></div>
+        <div class="setting-def">Definition: Switches the primary neon accent color across 3D UI elements.</div>
+        <select id="opt-theme-color" class="select-crazy">
+          <option value="cyan">Electric Cyan</option>
+          <option value="gold">Royal Gold</option>
+          <option value="pink">Neon Pink</option>
+          <option value="green">Matrix Green</option>
+        </select>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">12. Hide Login Button After Admin Sign-In</span>
+          <input type="checkbox" id="opt-hide-login-when-authed" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Keeps only Shortener and Admin Panel buttons in the top bar after login.</div>
+      </div>
+
+      <!-- 13 - 18: Cooldown & Channel -->
+      <div class="group-header">Cooldown Timer & Channel Box</div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">13. Enable Cooldown Timer Before Redirect</span>
+          <input type="checkbox" id="opt-timer-on" class="switch-3d" />
+        </div>
+        <div class="setting-def">Definition: Shows the 3D cooldown screen and your channel card before opening target links.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">14. Cooldown Duration (Seconds)</span></div>
+        <div class="setting-def">Definition: Number of seconds (1 to 30) to wait while your channel is shown.</div>
+        <input type="number" id="opt-timer-sec" class="input-crazy" min="1" max="30" value="5" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">15. Show Channel Card During Cooldown</span>
+          <input type="checkbox" id="opt-sponsor-on" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Displays your Telegram/WhatsApp/YouTube channel card during cooldown.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">16. Channel Destination URL</span></div>
+        <div class="setting-def">Definition: Your channel URL opened when a user taps Visit Channel during cooldown.</div>
+        <input type="url" id="opt-sponsor-url" class="input-crazy" placeholder="https://t.me/yourchannel" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">17. Channel Title & Button Text</span></div>
+        <div class="setting-def">Definition: Heading text shown inside the channel box on the cooldown screen.</div>
+        <input type="text" id="opt-sponsor-label" class="input-crazy" placeholder="JOIN OFFICIAL CHANNEL" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">18. Record Last Click Timestamp</span>
+          <input type="checkbox" id="opt-track-clicks" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Saves the latest click timestamp for each short link in Firebase.</div>
+      </div>
+
+      <!-- 19 - 25: Link Creation Rules -->
+      <div class="group-header">Link Generator Rules</div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">19. Allow Custom Slugs</span>
+          <input type="checkbox" id="opt-allow-slug" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Lets users choose custom short link names instead of random slugs only.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">20. Allow Password-Protected Links</span>
+          <input type="checkbox" id="opt-allow-pass" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Lets users protect links with a password before redirection.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">21. Allow Self-Destruct Click Limit</span>
+          <input type="checkbox" id="opt-allow-limit" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Automatically deletes a link after it reaches its set click count.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">22. Show QR Code on Created Link</span>
+          <input type="checkbox" id="opt-show-qr" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Generates a QR code below newly created short links.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">23. Random Slug Character Length</span></div>
+        <div class="setting-def">Definition: Length (4 to 12) of auto-generated slugs when custom slug is empty.</div>
+        <input type="number" id="opt-slug-len" class="input-crazy" min="4" max="12" value="6" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">24. Default Link Expiry (Hours)</span></div>
+        <div class="setting-def">Definition: Auto-expires new links after X hours (0 = never expires by time).</div>
+        <input type="number" id="opt-expire-hrs" class="input-crazy" min="0" value="0" />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">25. Admin Master Key for Locked Links</span></div>
+        <div class="setting-def">Definition: Master password that can also unlock password-protected links.</div>
+        <input type="password" id="opt-master-key" class="input-crazy" placeholder="Enter Your Password" />
+      </div>
+
+      <!-- 26 - 30: Security & 3D Feedback -->
+      <div class="group-header">Security, Sound & 3D Feedback</div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">26. Maintenance Mode Lock</span>
+          <input type="checkbox" id="opt-maintenance" class="switch-3d" />
+        </div>
+        <div class="setting-def">Definition: Pauses new link creation during site maintenance.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">27. Maintenance Alert Message</span></div>
+        <div class="setting-def">Definition: Message shown if someone tries to shorten a URL during maintenance mode.</div>
+        <input type="text" id="opt-maintenance-text" class="input-crazy" placeholder="Website is under maintenance." />
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">28. Domain Blacklist Filter</span>
+          <input type="checkbox" id="opt-blacklist-on" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Blocks URLs that contain any domain from your blocked list.</div>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">29. Blocked Domains List</span></div>
+        <div class="setting-def">Definition: Put one blocked domain per line.</div>
+        <textarea id="opt-blocked-list" class="textarea-crazy" placeholder="blocked-example.com"></textarea>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top">
+          <span class="setting-title">30. 3D Button Sound & Mobile Haptics</span>
+          <input type="checkbox" id="opt-tactile-fx" class="switch-3d" checked />
+        </div>
+        <div class="setting-def">Definition: Plays 3D button press audio and vibration feedback on mobile.</div>
+      </div>
+
+      <button class="btn-3d btn-cyan" style="width: 100%; margin: 8px 0 16px;" onclick="saveAdminConfig()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Save All Settings to Firebase
+      </button>
+
+      <!-- 31 - 33: Backup, Wipe & Link Manager -->
+      <div class="group-header">Backup & Admin Link Manager</div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">31. Export All Links (JSON Backup)</span></div>
+        <div class="setting-def">Definition: Downloads a JSON file with your settings and stored links.</div>
+        <button class="btn-3d btn-gold" style="width: 100%; margin-top: 6px;" onclick="downloadBackupJson()">
+          <i class="fa-solid fa-file-export"></i> Download JSON Backup
+        </button>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">32. Clear All Stored Links</span></div>
+        <div class="setting-def">Definition: Deletes all short links from Firebase Realtime Database.</div>
+        <button class="btn-3d btn-pink" style="width: 100%; margin-top: 6px;" onclick="wipeAllLinks()">
+          <i class="fa-solid fa-trash-can"></i> Delete All Links
+        </button>
+      </div>
+
+      <div class="setting-card">
+        <div class="setting-top"><span class="setting-title">33. Admin Links Manager (Copy, Visit & Delete)</span></div>
+        <div class="setting-def">Definition: Search links and use Copy, Visit, or Delete on any link.</div>
+        <input type="text" id="admin-search-box" class="input-crazy" placeholder="Search slug or URL..." oninput="drawAdminLinks()" style="margin-bottom: 8px;" />
+        <div id="admin-links-container" class="links-list"></div>
       </div>
     </section>
 
-    <div class="watermark">CRAFTED BY HASSAN FF &bull; HASSAN X HACKER 005</div>
+    <div id="main-footer-watermark" class="watermark">CRAFTED BY HASSAN FF &bull; HASSAN X HACKER 005</div>
   </div>
 
   <script>
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyBGjRdK2XaD1c_nZ4FiJQEyInBw66qFZAI",
       authDomain: "link-shorter-v1.firebaseapp.com",
@@ -247,188 +583,605 @@
       appId: "1:474510725082:web:e029022a902767247d3ae3"
     };
 
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
     const db = firebase.database();
 
-    const ADMIN_AUTH = { email: "ansarbubble43@gmail.com", pass: "123456789101112131415" };
-    let isAdmin = false;
-    let linksData = {};
-    let settingsData = { timerOn: true, timerSec: 5, channelUrl: "https://t.me/HASSAN_UPDATES", channelTitle: "JOIN HASSAN UPDATES" };
+    const ADMIN_AUTH = {
+      email: "ansarbubble43@gmail.com",
+      pass: "123456789101112131415"
+    };
+
+    const DEFAULTS = {
+      broadcastMode: "Announcement",
+      broadcastText: "",
+      showTopBar: false,
+      showPopup: false,
+      popupVersion: "v1",
+      siteName: "HASSAN LINK SHORTENER",
+      siteSub: "Instant 3D mobile link compressor",
+      footerText: "CRAFTED BY HASSAN FF • HASSAN X HACKER 005",
+      themeColor: "cyan",
+      hideLoginWhenAuthed: true,
+      timerOn: true,
+      timerSec: 5,
+      sponsorOn: true,
+      sponsorUrl: "https://t.me/HASSAN_UPDATES",
+      sponsorLabel: "JOIN HASSAN UPDATES",
+      trackClicks: true,
+      allowSlug: true,
+      allowPass: true,
+      allowLimit: true,
+      showQr: true,
+      slugLen: 6,
+      expireHrs: 0,
+      masterKey: "",
+      maintenance: false,
+      maintenanceText: "Website is under maintenance.",
+      blacklistOn: true,
+      blockedList: "",
+      tactileFx: true
+    };
+
+    let cfg = { ...DEFAULTS };
+    let linksMap = {};
+    let isAdminLoggedIn = false;
+    let authTab = "login";
+    let lastCreatedShortUrl = "";
+    let redirectTriggered = false;
+    let audioCtx = null;
+
+    function play3dFx() {
+      if (!cfg.tactileFx) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(210, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(85, audioCtx.currentTime + 0.055);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.055);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.055);
+      } catch (_) {}
+      if (navigator.vibrate) navigator.vibrate(12);
+    }
+
+    function wireButtons() {
+      document.querySelectorAll(".btn-3d").forEach((btn) => {
+        if (btn.dataset.wired) return;
+        btn.dataset.wired = "1";
+        btn.addEventListener("pointerdown", () => {
+          btn.classList.add("pressed");
+          play3dFx();
+        });
+        const release = () => btn.classList.remove("pressed");
+        btn.addEventListener("pointerup", release);
+        btn.addEventListener("pointerleave", release);
+        btn.addEventListener("pointercancel", release);
+      });
+    }
 
     window.addEventListener("DOMContentLoaded", () => {
-      openScreen('shortener');
-      syncSettings();
-      syncLinks();
+      wireButtons();
+      openScreen("shortener");
+      watchSettings();
+      watchLinks();
+      checkHashRedirect();
+    });
+
+    window.addEventListener("hashchange", () => {
+      redirectTriggered = false;
       checkHashRedirect();
     });
 
     function openScreen(name) {
       document.getElementById("screen-auth").style.display = name === "auth" ? "block" : "none";
       document.getElementById("screen-shortener").style.display = name === "shortener" ? "block" : "none";
-      document.getElementById("screen-admin").style.display = (name === "admin" && isAdmin) ? "block" : "none";
-      
-      document.getElementById("nav-login-btn").style.display = isAdmin ? "none" : "inline-flex";
-      document.getElementById("nav-admin-btn").style.display = isAdmin ? "inline-flex" : "none";
+      document.getElementById("screen-admin").style.display = (name === "admin" && isAdminLoggedIn) ? "block" : "none";
+
+      if (name === "admin" && isAdminLoggedIn) {
+        fillAdminInputs();
+        drawAdminLinks();
+      }
+      refreshNav();
+      wireButtons();
     }
 
-    function loginAdmin() {
-      const email = document.getElementById("auth-email").value.trim();
-      const pass = document.getElementById("auth-pass").value;
-      if (email === ADMIN_AUTH.email && pass === ADMIN_AUTH.pass) {
-        isAdmin = true;
-        openScreen("admin");
+    function refreshNav() {
+      const bar = document.getElementById("top-nav-bar");
+      const loginBtn = document.getElementById("nav-auth-btn");
+      const adminBtn = document.getElementById("nav-admin-btn");
+
+      if (isAdminLoggedIn) {
+        adminBtn.style.display = "inline-flex";
+        loginBtn.style.display = cfg.hideLoginWhenAuthed ? "none" : "inline-flex";
+        bar.classList.toggle("single-col", !!cfg.hideLoginWhenAuthed);
       } else {
-        alert("Invalid Admin Credentials!");
+        adminBtn.style.display = "none";
+        loginBtn.style.display = "inline-flex";
+        bar.classList.remove("single-col");
       }
     }
 
-    function logoutAdmin() {
-      isAdmin = false;
+    function setAuthTab(tab) {
+      authTab = tab;
+      const isSignup = tab === "signup";
+      document.getElementById("auth-heading").textContent = isSignup ? "ADMIN SIGN UP" : "ACCOUNT ACCESS";
+      document.getElementById("signup-confirm-wrap").style.display = isSignup ? "block" : "none";
+      document.getElementById("auth-submit-btn").innerHTML = isSignup
+        ? '<i class="fa-solid fa-user-plus"></i> Sign Up'
+        : '<i class="fa-solid fa-right-to-bracket"></i> Login Now';
+      document.getElementById("btn-tab-login").className = isSignup ? "btn-3d" : "btn-3d btn-cyan";
+      document.getElementById("btn-tab-signup").className = isSignup ? "btn-3d btn-cyan" : "btn-3d";
+      wireButtons();
+    }
+
+    function submitAuth() {
+      const email = document.getElementById("auth-email").value.trim();
+      const pass = document.getElementById("auth-pass").value;
+
+      if (!email || !pass) {
+        alert("Please enter email and password.");
+        return;
+      }
+
+      if (authTab === "signup") {
+        const confirmPass = document.getElementById("auth-pass-confirm").value;
+        if (pass !== confirmPass) {
+          alert("Passwords do not match.");
+          return;
+        }
+        if (email === ADMIN_AUTH.email && pass === ADMIN_AUTH.password) {
+          isAdminLoggedIn = true;
+          openScreen("admin");
+        } else {
+          alert("Sign up is restricted to the admin account.");
+        }
+        return;
+      }
+
+      if (email === ADMIN_AUTH.email && pass === ADMIN_AUTH.password) {
+        isAdminLoggedIn = true;
+        document.getElementById("auth-email").value = "";
+        document.getElementById("auth-pass").value = "";
+        openScreen("admin");
+      } else {
+        alert("Invalid email or password.");
+      }
+    }
+
+    function logoutAdminSession() {
+      isAdminLoggedIn = false;
       openScreen("shortener");
     }
 
-    function syncSettings() {
+    function watchSettings() {
       db.ref("settings").on("value", (snap) => {
-        if (snap.exists()) settingsData = { ...settingsData, ...snap.val() };
-        document.getElementById("cfg-timer-on").checked = !!settingsData.timerOn;
-        document.getElementById("cfg-timer-sec").value = settingsData.timerSec || 5;
-        document.getElementById("cfg-channel-url").value = settingsData.channelUrl || "";
-        document.getElementById("cfg-channel-title").value = settingsData.channelTitle || "";
-        
-        document.getElementById("sponsor-channel-title").textContent = settingsData.channelTitle || "JOIN OFFICIAL CHANNEL";
+        cfg = { ...DEFAULTS, ...(snap.val() || {}) };
+        applySettingsUi();
+        refreshNav();
+        if (isAdminLoggedIn) {
+          fillAdminInputs();
+        }
       });
     }
 
-    function saveAdminSettings() {
+    function applySettingsUi() {
+      document.getElementById("main-site-title").textContent = cfg.siteName || DEFAULTS.siteName;
+      document.title = cfg.siteName || DEFAULTS.siteName;
+      document.getElementById("main-site-sub").textContent = cfg.siteSub || DEFAULTS.siteSub;
+      document.getElementById("main-footer-watermark").textContent = cfg.footerText || DEFAULTS.footerText;
+
+      const colors = { cyan: "#00f3ff", gold: "#ffb700", pink: "#ff2a85", green: "#05ffa1" };
+      document.documentElement.style.setProperty("--cyan", colors[cfg.themeColor] || "#00f3ff");
+
+      const topBar = document.getElementById("top-broadcast-bar");
+      if (cfg.showTopBar && cfg.broadcastText) {
+        topBar.style.display = "block";
+        document.getElementById("top-broadcast-tag").textContent = cfg.broadcastMode || "Announcement";
+        document.getElementById("top-broadcast-msg").textContent = cfg.broadcastText;
+      } else {
+        topBar.style.display = "none";
+      }
+
+      if (cfg.showPopup && cfg.broadcastText) {
+        const key = `seen_popup_${cfg.popupVersion || "v1"}_${encodeURIComponent(cfg.broadcastText)}`;
+        if (!sessionStorage.getItem(key)) {
+          document.getElementById("popup-category-badge").textContent = cfg.broadcastMode || "Announcement";
+          document.getElementById("popup-message-text").textContent = cfg.broadcastText;
+          document.getElementById("user-popup-modal").classList.add("active");
+          sessionStorage.setItem(key, "1");
+        }
+      }
+
+      document.getElementById("wrap-user-slug").style.display = cfg.allowSlug ? "block" : "none";
+      document.getElementById("wrap-user-pass").style.display = cfg.allowPass ? "block" : "none";
+      document.getElementById("wrap-user-limit").style.display = cfg.allowLimit ? "block" : "none";
+      document.getElementById("qr-holder").style.display = cfg.showQr ? "inline-block" : "none";
+
+      document.getElementById("sponsor-channel-title").textContent = cfg.sponsorLabel || "JOIN OFFICIAL CHANNEL";
+      document.getElementById("cooldown-channel-box").style.display = (cfg.sponsorOn && cfg.sponsorUrl) ? "block" : "none";
+    }
+
+    function closeUserPopup() {
+      document.getElementById("user-popup-modal").classList.remove("active");
+    }
+
+    function fillAdminInputs() {
+      document.getElementById("opt-broadcast-mode").value = cfg.broadcastMode;
+      document.getElementById("opt-broadcast-text").value = cfg.broadcastText;
+      document.getElementById("opt-show-top-bar").checked = !!cfg.showTopBar;
+      document.getElementById("opt-show-popup").checked = !!cfg.showPopup;
+      document.getElementById("opt-popup-version").value = cfg.popupVersion;
+
+      document.getElementById("opt-site-name").value = cfg.siteName;
+      document.getElementById("opt-site-sub").value = cfg.siteSub;
+      document.getElementById("opt-footer-text").value = cfg.footerText;
+      document.getElementById("opt-theme-color").value = cfg.themeColor;
+      document.getElementById("opt-hide-login-when-authed").checked = !!cfg.hideLoginWhenAuthed;
+
+      document.getElementById("opt-timer-on").checked = !!cfg.timerOn;
+      document.getElementById("opt-timer-sec").value = cfg.timerSec;
+      document.getElementById("opt-sponsor-on").checked = !!cfg.sponsorOn;
+      document.getElementById("opt-sponsor-url").value = cfg.sponsorUrl;
+      document.getElementById("opt-sponsor-label").value = cfg.sponsorLabel;
+      document.getElementById("opt-track-clicks").checked = !!cfg.trackClicks;
+
+      document.getElementById("opt-allow-slug").checked = !!cfg.allowSlug;
+      document.getElementById("opt-allow-pass").checked = !!cfg.allowPass;
+      document.getElementById("opt-allow-limit").checked = !!cfg.allowLimit;
+      document.getElementById("opt-show-qr").checked = !!cfg.showQr;
+      document.getElementById("opt-slug-len").value = cfg.slugLen;
+      document.getElementById("opt-expire-hrs").value = cfg.expireHrs;
+      document.getElementById("opt-master-key").value = cfg.masterKey;
+
+      document.getElementById("opt-maintenance").checked = !!cfg.maintenance;
+      document.getElementById("opt-maintenance-text").value = cfg.maintenanceText;
+      document.getElementById("opt-blacklist-on").checked = !!cfg.blacklistOn;
+      document.getElementById("opt-blocked-list").value = cfg.blockedList;
+      document.getElementById("opt-tactile-fx").checked = !!cfg.tactileFx;
+    }
+
+    function saveAdminConfig() {
+      if (!isAdminLoggedIn) return;
       const payload = {
-        timerOn: document.getElementById("cfg-timer-on").checked,
-        timerSec: Number(document.getElementById("cfg-timer-sec").value) || 5,
-        channelUrl: document.getElementById("cfg-channel-url").value.trim(),
-        channelTitle: document.getElementById("cfg-channel-title").value.trim()
+        broadcastMode: document.getElementById("opt-broadcast-mode").value,
+        broadcastText: document.getElementById("opt-broadcast-text").value.trim(),
+        showTopBar: document.getElementById("opt-show-top-bar").checked,
+        showPopup: document.getElementById("opt-show-popup").checked,
+        popupVersion: document.getElementById("opt-popup-version").value.trim() || "v1",
+        siteName: document.getElementById("opt-site-name").value.trim() || DEFAULTS.siteName,
+        siteSub: document.getElementById("opt-site-sub").value.trim(),
+        footerText: document.getElementById("opt-footer-text").value.trim() || DEFAULTS.footerText,
+        themeColor: document.getElementById("opt-theme-color").value,
+        hideLoginWhenAuthed: document.getElementById("opt-hide-login-when-authed").checked,
+        timerOn: document.getElementById("opt-timer-on").checked,
+        timerSec: Math.max(1, Math.min(30, Number(document.getElementById("opt-timer-sec").value) || 5)),
+        sponsorOn: document.getElementById("opt-sponsor-on").checked,
+        sponsorUrl: document.getElementById("opt-sponsor-url").value.trim(),
+        sponsorLabel: document.getElementById("opt-sponsor-label").value.trim() || "JOIN OFFICIAL CHANNEL",
+        trackClicks: document.getElementById("opt-track-clicks").checked,
+        allowSlug: document.getElementById("opt-allow-slug").checked,
+        allowPass: document.getElementById("opt-allow-pass").checked,
+        allowLimit: document.getElementById("opt-allow-limit").checked,
+        showQr: document.getElementById("opt-show-qr").checked,
+        slugLen: Math.max(4, Math.min(12, Number(document.getElementById("opt-slug-len").value) || 6)),
+        expireHrs: Math.max(0, Number(document.getElementById("opt-expire-hrs").value) || 0),
+        masterKey: document.getElementById("opt-master-key").value,
+        maintenance: document.getElementById("opt-maintenance").checked,
+        maintenanceText: document.getElementById("opt-maintenance-text").value.trim() || DEFAULTS.maintenanceText,
+        blacklistOn: document.getElementById("opt-blacklist-on").checked,
+        blockedList: document.getElementById("opt-blocked-list").value,
+        tactileFx: document.getElementById("opt-tactile-fx").checked
       };
-      db.ref("settings").set(payload).then(() => alert("Admin Settings Saved!"));
+
+      db.ref("settings").set(payload).then(() => {
+        alert("All 33+ settings saved to Firebase!");
+      }).catch((err) => alert("Error saving settings: " + err.message));
+    }
+
+    function makeSlug(len) {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let out = "";
+      for (let i = 0; i < len; i++) {
+        out += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return out;
+    }
+
+    function isBlockedUrl(url) {
+      if (!cfg.blacklistOn || !cfg.blockedList) return false;
+      const list = cfg.blockedList.split("\n").map((d) => d.trim().toLowerCase()).filter(Boolean);
+      const low = url.toLowerCase();
+      return list.some((dom) => low.includes(dom));
     }
 
     function createShortLink() {
-      const longUrl = document.getElementById("user-long-url").value.trim();
-      const customSlug = document.getElementById("user-custom-slug").value.trim();
-      if (!longUrl) return alert("Enter a valid URL!");
+      if (cfg.maintenance) {
+        alert(cfg.maintenanceText || "Maintenance mode is active.");
+        return;
+      }
 
-      const slug = customSlug || Math.random().toString(36).substring(2, 8);
-      db.ref("links/" + slug).set({
-        url: longUrl,
-        createdAt: Date.now()
-      }).then(() => {
-        document.getElementById("user-long-url").value = "";
-        document.getElementById("user-custom-slug").value = "";
-        alert("Short Link Created Successfully!");
-      });
+      let rawUrl = document.getElementById("short-long-url").value.trim();
+      if (!rawUrl) {
+        alert("Please enter a Long URL!");
+        return;
+      }
+      if (!/^https?:\/\//i.test(rawUrl)) {
+        rawUrl = "https://" + rawUrl;
+      }
+
+      if (isBlockedUrl(rawUrl)) {
+        alert("This domain is blocked by admin.");
+        return;
+      }
+
+      const customSlug = cfg.allowSlug
+        ? document.getElementById("short-custom-slug").value.trim().replace(/[^a-zA-Z0-9_-]/g, "")
+        : "";
+      const pass = cfg.allowPass ? document.getElementById("short-link-pass").value : "";
+      const maxClicks = cfg.allowLimit ? (Number(document.getElementById("short-max-clicks").value) || 0) : 0;
+
+      const slug = customSlug || makeSlug(cfg.slugLen || 6);
+      const ref = db.ref("links/" + slug);
+
+      ref.get().then((snap) => {
+        if (snap.exists() && customSlug) {
+          alert("That custom slug already exists. Try another.");
+          return;
+        }
+
+        const now = Date.now();
+        const expiresAt = cfg.expireHrs > 0 ? now + cfg.expireHrs * 3600000 : 0;
+
+        ref.set({
+          url: rawUrl,
+          clicks: 0,
+          maxClicks,
+          password: pass || "",
+          createdAt: now,
+          expiresAt
+        }).then(() => {
+          lastCreatedShortUrl = `${window.location.origin}${window.location.pathname}#${slug}`;
+          document.getElementById("short-result-link").textContent = lastCreatedShortUrl;
+          document.getElementById("short-result-box").style.display = "block";
+
+          const qr = document.getElementById("qr-holder");
+          qr.innerHTML = "";
+          if (cfg.showQr && window.QRCode) {
+            new QRCode(qr, { text: lastCreatedShortUrl, width: 110, height: 110 });
+          }
+
+          document.getElementById("short-long-url").value = "";
+          document.getElementById("short-custom-slug").value = "";
+          document.getElementById("short-link-pass").value = "";
+          document.getElementById("short-max-clicks").value = "";
+          wireButtons();
+        }).catch((err) => alert("Failed to save link: " + err.message));
+      }).catch((err) => alert("Database error: " + err.message));
     }
 
-    function syncLinks() {
+    function watchLinks() {
       db.ref("links").on("value", (snap) => {
-        linksData = snap.val() || {};
-        renderPublicLinks();
-        renderAdminLinks();
+        linksMap = snap.val() || {};
+        const keys = Object.keys(linksMap);
+        let totalClicks = 0;
+        keys.forEach((k) => { totalClicks += Number(linksMap[k].clicks || 0); });
+
+        document.getElementById("admin-stat-links").textContent = keys.length;
+        document.getElementById("admin-stat-clicks").textContent = totalClicks;
+
+        drawPublicLinks();
+        if (isAdminLoggedIn) {
+          drawAdminLinks();
+        }
+        checkHashRedirect();
       });
     }
 
-    // Render Public Links List (For Users)
-    function renderPublicLinks() {
-      const container = document.getElementById("public-links-container");
-      container.innerHTML = "";
-      const keys = Object.keys(linksData).reverse();
+    function drawPublicLinks() {
+      const box = document.getElementById("public-links-container");
+      box.innerHTML = "";
+      const keys = Object.keys(linksMap).sort((a, b) => (linksMap[b].createdAt || 0) - (linksMap[a].createdAt || 0));
 
       if (!keys.length) {
-        container.innerHTML = `<div style="color:var(--muted); text-align:center; font-size:0.85rem;">No shortened links created yet.</div>`;
+        box.innerHTML = `<div style="color:var(--muted); text-align:center; font-size:0.84rem; padding:8px;">No shortened links yet.</div>`;
         return;
       }
 
       keys.forEach((slug) => {
+        const item = linksMap[slug];
         const fullShort = `${window.location.origin}${window.location.pathname}#${slug}`;
         const card = document.createElement("div");
         card.className = "public-link-card";
         card.innerHTML = `
-          <div class="link-slug-title"><i class="fa-solid fa-link"></i> ${fullShort}</div>
-          <div class="link-target-text">${linksData[slug].url}</div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
-            <button class="btn-3d btn-gold" style="font-size: 0.72rem;" onclick="copyText('${fullShort}')"><i class="fa-solid fa-copy"></i> Copy</button>
-            <button class="btn-3d btn-green" style="font-size: 0.72rem;" onclick="visitShortLink('${fullShort}')"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Now</button>
+          <div class="link-slug-title"><i class="fa-solid fa-link"></i> ${esc(fullShort)}</div>
+          <div class="link-target-text">${esc(item.url || "")}</div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 2px;">
+            <button class="btn-3d btn-gold" style="font-size: 0.72rem;" onclick="copyText('${escJs(fullShort)}')"><i class="fa-solid fa-copy"></i> Copy</button>
+            <button class="btn-3d btn-green" style="font-size: 0.72rem;" onclick="visitShortLink('${escJs(fullShort)}')"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Now</button>
           </div>
         `;
-        container.appendChild(card);
+        box.appendChild(card);
       });
+      wireButtons();
     }
 
-    // Render Admin Links List (With Copy, Visit, and Delete Buttons)
-    function renderAdminLinks() {
-      const container = document.getElementById("admin-links-container");
-      container.innerHTML = "";
-      const keys = Object.keys(linksData).reverse();
+    function drawAdminLinks() {
+      const q = (document.getElementById("admin-search-box")?.value || "").toLowerCase().trim();
+      const box = document.getElementById("admin-links-container");
+      box.innerHTML = "";
+
+      const keys = Object.keys(linksMap)
+        .sort((a, b) => (linksMap[b].createdAt || 0) - (linksMap[a].createdAt || 0))
+        .filter((s) => {
+          const dest = (linksMap[s].url || "").toLowerCase();
+          return !q || s.toLowerCase().includes(q) || dest.includes(q);
+        });
+
+      if (!keys.length) {
+        box.innerHTML = `<div style="color:var(--muted); text-align:center; font-size:0.84rem; padding:8px;">No matching links.</div>`;
+        return;
+      }
 
       keys.forEach((slug) => {
+        const item = linksMap[slug];
         const fullShort = `${window.location.origin}${window.location.pathname}#${slug}`;
         const card = document.createElement("div");
         card.className = "public-link-card";
         card.innerHTML = `
-          <div class="link-slug-title">#${slug}</div>
-          <div class="link-target-text">${linksData[slug].url}</div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 4px;">
-            <button class="btn-3d btn-gold" style="font-size: 0.7rem; padding: 8px;" onclick="copyText('${fullShort}')"><i class="fa-solid fa-copy"></i> Copy</button>
-            <button class="btn-3d btn-green" style="font-size: 0.7rem; padding: 8px;" onclick="visitShortLink('${fullShort}')"><i class="fa-solid fa-eye"></i> Visit</button>
-            <button class="btn-3d btn-pink" style="font-size: 0.7rem; padding: 8px;" onclick="deleteLink('${slug}')"><i class="fa-solid fa-trash"></i> Delete</button>
+          <div class="link-slug-title">#${esc(slug)} • Clicks: ${item.clicks || 0}</div>
+          <div class="link-target-text">${esc(item.url || "")}</div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 2px;">
+            <button class="btn-3d btn-gold" style="font-size: 0.7rem; padding: 8px;" onclick="copyText('${escJs(fullShort)}')"><i class="fa-solid fa-copy"></i> Copy</button>
+            <button class="btn-3d btn-green" style="font-size: 0.7rem; padding: 8px;" onclick="visitShortLink('${escJs(fullShort)}')"><i class="fa-solid fa-eye"></i> Visit</button>
+            <button class="btn-3d btn-pink" style="font-size: 0.7rem; padding: 8px;" onclick="deleteSingleSlug('${escJs(slug)}')"><i class="fa-solid fa-trash"></i> Delete</button>
           </div>
         `;
-        container.appendChild(card);
+        box.appendChild(card);
       });
+      wireButtons();
     }
 
     function copyText(txt) {
-      navigator.clipboard.writeText(txt).then(() => alert("Copied to Clipboard!"));
+      if (!txt) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(() => alert("Copied to clipboard!"));
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        alert("Copied to clipboard!");
+      }
     }
 
-    function visitShortLink(url) {
-      window.open(url, "_blank");
+    function visitShortLink(fullShortUrl) {
+      if (!fullShortUrl) return;
+      const hashIdx = fullShortUrl.indexOf("#");
+      if (hashIdx !== -1) {
+        const slug = fullShortUrl.slice(hashIdx + 1);
+        window.location.hash = "#" + slug;
+        redirectTriggered = false;
+        checkHashRedirect();
+      } else {
+        window.open(fullShortUrl, "_blank");
+      }
     }
 
-    function deleteLink(slug) {
+    function deleteSingleSlug(slug) {
+      if (!isAdminLoggedIn) return;
       if (confirm(`Delete short link #${slug}?`)) {
         db.ref("links/" + slug).remove();
       }
     }
 
-    function openSponsorChannel() {
-      if (settingsData.channelUrl) {
-        window.open(settingsData.channelUrl, "_blank");
+    function wipeAllLinks() {
+      if (!isAdminLoggedIn) return;
+      if (confirm("Delete ALL short links from Firebase?")) {
+        db.ref("links").remove();
       }
     }
 
-    // COOLDOWN & REDIRECTION LOGIC
+    function downloadBackupJson() {
+      if (!isAdminLoggedIn) return;
+      const blob = new Blob([JSON.stringify({ settings: cfg, links: linksMap }, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "hassan-link-shortener-backup.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function openSponsorChannel() {
+      if (cfg.sponsorUrl) {
+        window.open(cfg.sponsorUrl, "_blank");
+      }
+    }
+
     function checkHashRedirect() {
+      if (redirectTriggered) return;
       const slug = window.location.hash.replace("#", "").trim();
       if (!slug) return;
 
-      db.ref("links/" + slug).get().then((snap) => {
-        if (!snap.exists()) return;
-        const targetUrl = snap.val().url;
+      const item = linksMap[slug];
+      if (!item) return;
 
-        if (settingsData.timerOn) {
-          document.getElementById("cooldown-overlay").style.display = "flex";
-          let timeLeft = settingsData.timerSec || 5;
-          document.getElementById("cooldown-timer-num").textContent = timeLeft;
+      redirectTriggered = true;
+      const now = Date.now();
 
-          const timerInterval = setInterval(() => {
-            timeLeft--;
-            document.getElementById("cooldown-timer-num").textContent = timeLeft;
-            if (timeLeft <= 0) {
-              clearInterval(timerInterval);
-              window.location.href = targetUrl;
-            }
-          }, 1000);
-        } else {
-          window.location.href = targetUrl;
+      if (item.expiresAt && now > item.expiresAt) {
+        db.ref("links/" + slug).remove();
+        alert("This short link has expired.");
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+        return;
+      }
+
+      if (item.maxClicks && item.maxClicks > 0 && (item.clicks || 0) >= item.maxClicks) {
+        db.ref("links/" + slug).remove();
+        alert("This link reached its click limit.");
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+        return;
+      }
+
+      if (item.password) {
+        const entered = prompt("Enter link password:");
+        if (entered !== item.password && (!cfg.masterKey || entered !== cfg.masterKey)) {
+          alert("Incorrect password.");
+          redirectTriggered = false;
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+          return;
         }
-      });
+      }
+
+      const nextClicks = (item.clicks || 0) + 1;
+      const updateObj = { clicks: nextClicks };
+      if (cfg.trackClicks) updateObj.lastClickedAt = now;
+
+      db.ref("links/" + slug).update(updateObj).then(() => {
+        if (item.maxClicks && item.maxClicks > 0 && nextClicks >= item.maxClicks) {
+          db.ref("links/" + slug).remove();
+        }
+      }).catch(() => {});
+
+      const goTarget = () => {
+        window.location.href = item.url;
+      };
+
+      if (cfg.timerOn) {
+        const overlay = document.getElementById("cooldown-overlay");
+        const numEl = document.getElementById("cooldown-timer-num");
+        let sec = Number(cfg.timerSec) || 5;
+        numEl.textContent = sec;
+        overlay.style.display = "flex";
+
+        const iv = setInterval(() => {
+          sec--;
+          numEl.textContent = Math.max(0, sec);
+          if (sec <= 0) {
+            clearInterval(iv);
+            goTarget();
+          }
+        }, 1000);
+      } else {
+        goTarget();
+      }
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function escJs(s) {
+      return String(s).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
     }
   </script>
 </body>
